@@ -3,7 +3,8 @@ import type {NextConfig} from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   typescript: {
-    ignoreBuildErrors: true,
+    // TODO: Remove this when type issue with geist font is resolved
+    ignoreBuildErrors: true, 
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -17,6 +18,11 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb', // Or as needed
+    },
   },
 };
 
