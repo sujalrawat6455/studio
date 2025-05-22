@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 import { Inter } from 'next/font/google'; // Using Inter as a base, Geist provided by user but not in default Next.js
-import { Geist_Sans as GeistSans, Geist_Mono as GeistMono } from 'geist/font';
+import { GeistSans, GeistMono } from 'geist/font';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
