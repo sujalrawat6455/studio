@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { CodeInputPanel } from "./CodeInputPanel";
 import { OutputPanel } from "./OutputPanel";
-import { ExplanationPanel } from "./ExplanationPanel";
+// import { ExplanationPanel } from "./ExplanationPanel"; // Removed
 import { DatatypeMappingDisplay } from "./DatatypeMappingDisplay";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent }  from "@/components/ui/card";
@@ -20,7 +20,7 @@ interface CompilerInterfaceProps {
 export function CompilerInterface({ initialDatatypeMappings }: CompilerInterfaceProps) {
   const [miniCCode, setMiniCCode] = useState<string>("");
   const [jsCode, setJsCode] = useState<string | null>(null);
-  const [explanation, setExplanation] = useState<string | null>(null);
+  // const [explanation, setExplanation] = useState<string | null>(null); // Removed
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [compilationErrors, setCompilationErrors] = useState<string[] | null>(null);
@@ -30,7 +30,7 @@ export function CompilerInterface({ initialDatatypeMappings }: CompilerInterface
   useEffect(() => {
     if (!isLoading) { // Only clear if not currently loading
       setJsCode(null);
-      setExplanation(null);
+      // setExplanation(null); // Removed
       setError(null);
       setCompilationErrors(null);
     }
@@ -50,7 +50,7 @@ export function CompilerInterface({ initialDatatypeMappings }: CompilerInterface
     setError(null);
     setCompilationErrors(null);
     setJsCode(null);
-    setExplanation(null);
+    // setExplanation(null); // Removed
 
     try {
       const result: CompileResult = await compileAndExplainAction(miniCCode);
@@ -66,7 +66,7 @@ export function CompilerInterface({ initialDatatypeMappings }: CompilerInterface
         });
       } else {
         setJsCode(result.jsCode);
-        setExplanation(result.explanation);
+        // setExplanation(result.explanation); // Removed
       }
     } catch (e: any) {
       setError(e.message || "An unexpected error occurred.");
@@ -112,7 +112,7 @@ print(pi);
       <Card className="shadow-md">
         <CardContent className="p-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground max-w-prose">
-            Enter your MiniC code below. Click "Compile" to see the generated JavaScript and an AI-powered explanation of the conversion process.
+            Enter your MiniC code below. Click "Compile" to see the generated JavaScript.
           </p>
           <Button onClick={handleCompile} disabled={isLoading} size="lg" className="w-full sm:w-auto">
             {isLoading ? (
@@ -125,7 +125,7 @@ print(pi);
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:min-h-[calc(100vh-280px)]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:min-h-[calc(100vh-280px)]">
         {/* Column 1: Input & Datatypes */}
         <div className="lg:col-span-1 flex flex-col gap-6">
           <CodeInputPanel
@@ -140,13 +140,15 @@ print(pi);
 
         {/* Column 2: JS Output */}
         <div className="lg:col-span-1">
-          <OutputPanel jsCode={jsCode} isLoading={isLoading && !jsCode && !explanation} error={error && !compilationErrors ? error : undefined} />
+          <OutputPanel jsCode={jsCode} isLoading={isLoading && !jsCode} error={error && !compilationErrors ? error : undefined} />
         </div>
 
-        {/* Column 3: Explanation */}
+        {/* Column 3: Explanation - Removed */}
+        {/* 
         <div className="lg:col-span-1">
           <ExplanationPanel explanation={explanation} isLoading={isLoading && !explanation} error={error && !compilationErrors ? error : undefined} />
-        </div>
+        </div> 
+        */}
       </div>
     </div>
   );
